@@ -206,7 +206,7 @@ if (isset($_GET['categoria'])) {
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
         <title>IRMSERV - Costs Admin</title>
         <script src="js/jquery.min.js?<?php echo date('His') ?>"></script>
@@ -223,7 +223,7 @@ if (isset($_GET['categoria'])) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="apple-touch-startup-image"   media="screen, mobile" href="images/splash.png" />
-        <link rel="apple-touch-icon-precomposed" href="images/icon.png"/>
+        <link rel="apple-touch-icon-precomposed" href="images/appcosts.jpg"/>
         <meta name="HandheldFriendly" content="true">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="MobileOptimized" content="width">
@@ -328,7 +328,24 @@ if (isset($_GET['categoria'])) {
         </div><!-- /page -->
 
         <script>
-          
+              // Listen for ALL links at the top level of the document. For
+    // testing purposes, we're not going to worry about LOCAL vs.
+    // EXTERNAL links - we'll just demonstrate the feature.
+    $( document ).on(
+    "click",
+    "a",
+    function( event ){
+     
+    // Stop the default behavior of the browser, which
+    // is to change the URL of the page.
+    event.preventDefault();
+     
+    // Manually change the location of the page to stay in
+    // "Standalone" mode and change the URL at the same time.
+    location.href = $( event.target ).attr( "href" );
+     
+    }
+    );
         </script>
 
 

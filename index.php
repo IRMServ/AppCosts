@@ -5,7 +5,7 @@ include('includes/connection.php');
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>IRMSERV - Costs Admin</title>
         <?php
         $mobile = explode('Mobile', $useragent);
@@ -13,13 +13,13 @@ include('includes/connection.php');
 //        if (count($mobile) > 1):
         ?>
         <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=yes"> 
-      
+
         <script src="js/jquery.min.js" type="text/javascript"></script>
- 
+
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="apple-touch-startup-image"  sizes="768×1024"  media="screen, mobile" href="images/splash.png" />
-        <link rel="apple-touch-icon-precomposed" href="images/icon2.png"/>
+        <link rel="apple-touch-icon-precomposed" href="images/appcosts.jpg"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <meta name="HandheldFriendly" content="true">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,12 +55,12 @@ include('includes/connection.php');
 
                 <div data-role="collapsible-set">
                     <?php
-                    $q = $conn->query('select * from CategoriaCustos');
+                    $q = $conn->query('select * from categoriacustos');
                     while ($r = $q->fetch_object()):
                         ?>
                         <div data-role="collapsible">
                             <h3><?php echo $r->categorianome; ?></h3>
-<div class="ui-block-b mais"> <a  href="grafico.php?categoria=<?php echo $r->idCategoriaCustos?>" data-icon="grid" data-iconpos="left" data-role="button">Chart</a></div>
+                            <div class="ui-block-b mais"> <a  href="grafico.php?categoria=<?php echo $r->idCategoriaCustos ?>" itemProp="installUrl" >Chart</a></div>
                             <ol data-role="listview">
                                 <?php
                                 $q2 = $conn->query("select * from fornecedor where categoriacusto_fk= {$r->idCategoriaCustos}");
@@ -68,7 +68,7 @@ include('includes/connection.php');
                                     ?>
                                     <li><div class="ui-grid-a">
                                             <div class="ui-block-a" data-theme="a">  <?php echo $r2->fornecedornome ?></div>
-                                            <div class="ui-block-b"> <a  href="grafico.php?fornecedor=<?php echo $r2->idFornecedor?>" data-icon="grid" data-iconpos="left" data-role="button">Chart</a></div>
+                                            <div class="ui-block-b"> <a  href="grafico.php?fornecedor=<?php echo $r2->idFornecedor ?>"  >Chart</a></div>
                                         </div>
                                     </li>
                                     <?php
@@ -97,8 +97,24 @@ include('includes/connection.php');
                 startDelay: 0,
                 touchIcon: true
             };
-           
-
+            // Listen for ALL links at the top level of the document. For
+            // testing purposes, we're not going to worry about LOCAL vs.
+            // EXTERNAL links - we'll just demonstrate the feature.
+            $( document ).on(
+            "click",
+            "a",
+            function( event ){
+     
+                // Stop the default behavior of the browser, which
+                // is to change the URL of the page.
+                event.preventDefault();
+     
+                // Manually change the location of the page to stay in
+                // "Standalone" mode and change the URL at the same time.
+                location.href = $( event.target ).attr( "href" );
+     
+            }
+        );
         </script>
 
         <link rel="stylesheet" href="css/add2home.css">
